@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symbol内置方法</title>
+</head>
+<body>
+    <script>
+        // Symbol内置方法--hasInstance
+        class A {
+            static [Symbol.hasInstance]() {
+                console.log('判断是否属于这个对象时被调用');
+            }       
+        }
+        let obj = {};
+        console.log(obj instanceof A)  // false
+
+        // Symbol内置方法--isConcatSpreadable 
+        let arr1 = [1, 2, 3];
+        let arr2 = [4, 5, 6];
+        let arr3 = [4, 5, 6];
+        arr2[Symbol.isConcatSpreadable] = false;
+        console.log(arr1.concat(arr2));
+        // [ 1, 2, 3, [ 4, 5, 6, [Symbol(Symbol.isConcatSpreadable)]: false ] ]
+        console.log(arr1.concat(arr3));
+        // [ 1, 2, 3, 4, 5, 6 ]
+    </script>
+</body>
+</html>

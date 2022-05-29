@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迭代器应用-自定义遍历对象</title>
+</head>
+<body>
+    <script>
+        // 声明一个对象
+        const banji={
+            name:"class 1",
+            students:[
+                '小明',
+                '小宁',
+                '小天',
+                '小红'
+            ],
+            [Symbol.iterator](){
+                // 索引变量
+                let index=0;
+                // 把当前的this保存在_this
+                let _this=this;
+                return{
+                    next:function(){
+                        console.log(_this) // {name: 'class 1', students: Array(4), Symbol(Symbol.iterator): ƒ}
+                        console.log(this) // {next: ƒ}
+                        if(index<_this.students.length){                          
+                            return{
+                                value:_this.students[index++],done:false
+                            }
+                        }else{
+                            return{
+                                value:undefined,done:true
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        for(let v of banji){
+            console.log(v)
+        }
+    </script>
+</body>
+</html>
