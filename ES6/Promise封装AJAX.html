@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="http://mockjs.com/bower_components/mockjs/dist/mock.js"></script>
+
+    <title>Promise封装AJAX</title>
+</head>
+<body>
+    <script>
+        // 前端生成Mock数据，进行批量导出
+        const data = Mock.mock({
+            code: 200,
+            msg: '商品列表数据',
+            'data|5-10': [{
+                'id|+1': 1,
+                'title': '@ctitle(5,10)',
+                'img': "@img('400x400')"
+            }]
+        })
+        Mock.mock('http://xxxx.com/demo', data)
+
+
+        // Promise封装Ajax
+        const p=new Promise((resolve,reject)=>{
+            // 1. 创建对象
+            const xhr=new XMLHttpRequest();
+
+            // 2. 初始化
+            xhr.open("GET","http://xxxx.com/demo");
+
+            // 3. 发送
+            xhr.send();
+
+            // 4. 绑定事件，处理响应结果
+            xhr.onreadystatechange=function(){
+                // 判断
+                if(xhr.readyState===4){
+                    if(xhr.readyState===4){
+                        // 判断响应状态码 200-299
+                        if(xhr.status>=200&&xhr.status<300){
+                            // 表示成功
+                            resolve(JSON.parse(xhr.responseText))
+                        }else{
+                            // 如果失败
+                            reject(xhr.status);
+                        }
+                    }
+                }
+            }
+        })
+
+        // 指定回调
+        p.then(function(value){
+            console.log(value);
+        },function(reason){
+            console.error(reason);
+        })
+        
+    </script>
+</body>
+</html>
