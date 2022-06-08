@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Set集合实践</title>
+</head>
+<body>
+    <script>
+        let arr = [1,2,3,4,5,4,3,2,1]
+        let arr2=[4,5,6,5,6]
+
+
+        // 1. 数组去重
+        // let result=[...new Set(arr)]   // 扩展运算符...
+        // console.log(result)
+
+        // 2. 交集
+        
+        // let result=[...new Set(arr)].filter(item=>{
+        //     let s2=new Set(arr2); // [4, 5, 6]
+        //     if(s2.has(item)){
+        //         return true;
+        //     }else{
+        //         return false;
+        //     }
+        // });
+        // console.log(result)  // [4, 5]
+        // // 简化写法
+        // let result2=[...new Set(arr)].filter(item=>new Set(arr2).has(item))
+        // console.log(result2)  // [4, 5]
+
+
+        // 3. 并集
+        // let union=[...new Set([...arr,...arr2])]  // 数组合并，通过set去重，转数组
+        // console.log(union)  // [1, 2, 3, 4, 5, 6]
+
+        // 4. 差集
+        let diff=[...new Set(arr)].filter(item=>!new Set(arr2).has(item)) // arr中有，arr2中没有的元素
+        console.log(diff)  // [1, 2, 3]
+    </script>
+</body>
+</html>
