@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+</head>
+<body>
+    <script>
+        // 声明Map
+        let m=new Map();
+
+        // 添加元素
+        m.set('name','aaa');
+        m.set('change',function(){
+            console.log('bbb')
+        });
+        // 对象
+        let key={
+            school:'szu'
+        };
+        // 键是对象，值是数组
+        m.set(key,['深圳']);
+
+        console.log(m);
+        
+        // size
+        console.log(m.size);
+
+        // 删除
+        // m.delete('name');
+
+        // 根据键获取值
+        console.log(m.get('change'));
+        console.log(m.get(key));
+
+        // 清空
+        // m.clear();
+        // console.log(m);
+        
+        // 遍历
+        for(let v of m){
+            console.log(v);
+        }
+        
+
+
+    </script>
+</body>
+</html>

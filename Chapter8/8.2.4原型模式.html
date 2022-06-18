@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>原型模式</title>
+</head>
+<body>
+    <script>
+        function Person(){}
+
+        // 构造函数有一个与之关联的原型对象
+        console.log(typeof Person.prototype)  // object
+
+        console.log(Person.prototype)   
+        // {
+        //     constructor: ƒ Person()
+        //     [[Prototype]]: Object
+        // }
+
+        // 原型对象有一个constructor属性，引用这个构造函数
+        console.log(Person.prototype.constructor===Person)  // true
+
+
+        // 正常的原型链都会终止于Object的原型对象
+        console.log(Person.prototype.__proto__===Object.prototype)  // true
+        console.log(Person.prototype.__proto__.constructor==Object)  // true
+        console.log(Person.prototype.__proto__.__proto__===null)  // true
+
+        console.log(Person.prototype.__proto__)
+        //{
+        //  constructor: ƒ Object()
+        //  hasOwnProperty:...
+        //  isPrototypeOf:...
+        //}
+
+        let person1=new Person()
+        let person2=new Person()
+
+        // 构造函数、原型对象和实例是三个完全不同的对象
+        console.log(person1===Person)   // false
+        console.log(person1===Person.prototype)  // false
+        console.log(Person.prototype===Person)  // false
+
+        // 实例通过prototype属性链接到原型对象
+        console.log(person1.__proto__===Person.prototype)  // true
+        // 实例与构造函数没有直接联系，与原型对象有直接联系
+        console.log(person1.__proto__.constructor===Person)  // true
+        // 同一个构造函数创建的两个实例，共享同一个原型对象
+        console.log(person1.__proto__==person2.__proto__)  //true
+        
+        // instanceof 检查实例的原型链中是否包含指定构造函数的原型
+        console.log(person1 instanceof Person)  // true
+        console.log(person1 instanceof Object)  // true
+        console.log(Person.prototype instanceof Object)  // true
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原型与原型链</title>
+</head>
+<body>
+    <script>
+        // 1. 对象和数组没有原型
+        // 原型 prototype 是函数特有的
+        // let obj={}
+        // let arr =[]
+        //obj.prototype.a=666  //TypeError 
+        
+        
+        // 2. 函数的原型上可以.属性 .方法
+        // function fn(){}
+        // fn.prototype.name='小明'
+        // fn.prototype.fn2=function(){
+        //     console.log("fn2")
+        // }
+
+        // 3. 任何数据都有原型链 [[prototype]]   _proto_
+        // let obj={}
+        // console.log(obj)
+        // let fn=function(){}
+        // console.dir(fn)
+
+
+        // 4. 原型链的查找规则
+        // 先从当前实例属性去查找，如果找到就返回，否则顺着原型链一层一层往上查找
+        // function Person(){
+
+        // }
+        // Person.prototype.name='小明'
+        // Person.prototype.age=18
+        // Person.prototype.getAge=function(){
+        //     console.log(this.age)
+        // }
+        // // 实例
+        // let person1=new Person()
+        // person1.age=28
+        // console.log(person1)
+        // console.log(person1.demo) // 实例没有，Person也没有，Object也没有，所以undefined
+        // person1.getAge() // 28
+        // person1.abc()  // Uncaught TypeError: person1.abc is not a function
+
+
+        // 5. 找自身的私有属性
+        function Person(){
+
+        }
+        Person.prototype.age=18 // 原型链上属性
+        let person1=new Person()
+        person1.age=28  // 私有属性
+        person1.demo='demo' // 私有属性
+        let item;
+        for(item in person1){
+            if(person1.hasOwnProperty(item)){
+                console.log(item)  // 输出age demo
+            }
+        }
+        console.log(Person.prototype.constructor) // constructor指回构造函数Person(){}
+
+    </script>
+</body>
+</html>
