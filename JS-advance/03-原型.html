@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1. 构造函数的问题
+        function Star(uname, age){
+            this.uname=uname;
+            this.age=age;
+        }
+        // 构造函数的原型对象
+        Star.prototype.sing=function(){
+            console.log('我会唱歌');
+        }
+        var ldh=new Star('刘德华',18);
+        var zxy=new Star('张学友',19);
+
+        console.log(ldh.sing==zxy.sing);  // true
+        ldh.sing();  // 所有实例都可以使用这个方法
+        zxy.sing();
+
+
+        // 2. 一般情况下，公共属性定义到构造函数里面，公共方法放到原型对象身上
+    </script>
+</body>
+</html>
