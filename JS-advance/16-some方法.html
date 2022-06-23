@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var arr=[11,22,33,4,55];
+        // some 查找数组中是否有符合条件的元素
+        var flag=arr.some(function(value,index){
+            return value>=50;
+        })
+        console.log(flag);
+
+        var arr1=['red','pink','blue'];
+        // 如果找到则直接返回true
+        var flag1=arr1.some(function(value){
+            return value=='pink';
+        });
+        console.log(flag1);
+    </script>
+    
+</body>
+</html>

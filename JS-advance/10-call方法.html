@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // call方法
+        function fn(x,y){
+            console.log(111);
+            console.log(this);
+            console.log(x+y);
+        }
+        var o={
+            name:'andy'
+        }
+
+        // fn.call(); // 111  window
+
+        // 改变了函数的this的指向
+        fn.call(o,1,2);  // 111  {name:'andy'}  3
+
+    </script>
+</body>
+</html>
