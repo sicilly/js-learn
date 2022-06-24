@@ -515,3 +515,113 @@
 </html>
 ```
 
+![image-20220623225651274](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206232256346.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text"> <button>点击</button>
+    <div></div>
+    <script>
+        //trim方法去除字符串两端空格,不会去掉字符串中间的空格
+        var str = '   andy   ';
+        console.log(str);
+        var str1 = str.trim();
+        console.log(str1);
+        var input = document.querySelector('input');
+        var btn = document.querySelector('button');
+        var div = document.querySelector('div');
+        btn.onclick = function(){
+            var str = input.value.trim();
+            if( str === ''){
+                alert('请输入内容');
+            }else {
+                console.log(str);
+                console.log(str.length);
+                div.innerHTML = str;
+            }
+        }
+    </script>
+</body>
+</html>
+```
+
+![image-20220623230203804](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206232302869.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //用于获取对象自身所有的属性
+        var obj = {
+            id : 1,
+            pname:'小米',
+            price:1999,
+            num:2000
+        };
+       var arr = Object.keys(obj);
+       console.log(arr);
+       arr.forEach(function(value){
+           console.log(value);
+       })
+    </script>
+
+</body>
+</html>
+```
+
+![image-20220623231153352](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206232311421.png)
+
+
+
+![image-20220624213614282](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206242136353.png)
+
+```html
+<script>
+    //Object.defineProperty()定义新属性或修改原有的样式
+    var obj = {
+        id:1,
+        pname:'小米',
+        price:1999
+    };
+    //1.以前的对象添加和修改属性的方式
+    // obj.num = 1000;//向数组中添加属性
+    // obj.price = 2000;//修改数组中原有的属性
+    // console.log(obj);
+    //2.Object.defineProperty()定义新属性或者修改原有的属性
+    Object.defineProperty(obj,'num',{
+        value:1000
+    })
+    Object.defineProperty(obj,'price',{
+        value:9.9
+    })
+    console.log(obj);
+    Object.defineProperty(obj,'id',{
+        //如果值为false，则不允许修改这个属性值，默认值也是false
+        writable:false
+    });
+    Object.defineProperty(obj,'adress',{
+       value:'中国山东',
+       writable:false,
+       enumerable:false,//不允许遍历（枚举）
+       configurable:false//不允许删除
+    });
+    console.log(obj);
+    console.log(Object.keys(obj));
+    delete obj.address;
+    console.log(obj);  // 删不掉address
+</script>
+```
+
