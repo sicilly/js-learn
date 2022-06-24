@@ -1,0 +1,35 @@
+<script>
+    //Object.defineProperty()定义新属性或修改原有的样式
+    var obj = {
+        id:1,
+        pname:'小米',
+        price:1999
+    };
+    //1.以前的对象添加和修改属性的方式
+    // obj.num = 1000;//向数组中添加属性
+    // obj.price = 2000;//修改数组中原有的属性
+    // console.log(obj);
+    //2.Object.defineProperty()定义新属性或者修改原有的属性
+    Object.defineProperty(obj,'num',{
+        value:1000
+    })
+    Object.defineProperty(obj,'price',{
+        value:9.9
+    })
+    console.log(obj);
+    Object.defineProperty(obj,'id',{
+        //如果值为false，则不允许修改这个属性值，默认值也是false
+        writable:false
+    });
+    Object.defineProperty(obj,'address',{
+       value:'中国山东',
+       writable:false,
+       enumerable:false,//不允许遍历（枚举）
+       configurable:false//不允许删除
+    });
+    console.log(obj);
+    console.log(Object.keys(obj));
+    delete obj.address;
+    console.log(obj);  // 删不掉address
+    
+</script>
