@@ -625,3 +625,292 @@
 </script>
 ```
 
+## 4. 函数进阶
+
+![image-20220624215306343](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206242153402.png)
+
+![image-20220624220535695](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206242205766.png)
+
+![image-20220624222028437](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206242220503.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //1.自定义函数（命名函数）
+        function fn(){};
+ 
+        //2.函数表达式（匿名函数）
+        var fun = function(){};
+ 
+        //3.利用new Function（'参数1'，'参数2'，'函数体'）
+        var f = new Function('a','b','console.log(a+b)');
+        f(1,2);
+ 
+        //4.所有函数都是 Function 的实例（对象）
+        console.dir(f);
+        //5.函数也属于对象
+        console.log(f instanceof Object);  // true
+    </script>
+
+</body>
+</html>
+```
+
+![image-20220624222420466](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206242224523.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //函数的调用方式
+ 
+        //1.普通函数
+        function fn(){
+            console.log('哈哈哈');
+        }
+        // fn();  fn.call();
+ 
+        //2.对象的方法
+        var o = {
+            sayHi:function(){
+                console.log('你好呀');
+            }
+        }
+        o.sayHi();
+ 
+        //3.构造函数
+        function Star(){};
+        new Star();
+ 
+        //4.绑定事件函数
+        // btn.onclick = function(){};//点击了按钮就可以调用这个函数
+ 
+        //5.定时器函数
+        setInterval(function(){},1000); //这个函数是定时器自动一秒钟调用一次
+ 
+        //6.立即执行函数
+        //立即执行函数是自动调用
+        (function(){
+            console.log('开始调用啦');
+        })()
+ 
+    </script>
+
+</body>
+</html>
+```
+
+![image-20220624222958149](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206242229216.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮</button>
+    <script>
+        //函数的调用方式
+ 
+        //1.普通函数this指向window
+        function fn(){
+            console.log('普通函数的this:'+this);  // [object Window]
+        }
+        fn();  
+        // fn.call();
+ 
+        //2.对象的方法 this指向的是对象o
+        var o = {
+            sayHi:function(){
+                console.log('对象方法的this:'+this);
+            }
+        }
+        o.sayHi();
+ 
+        //3.构造函数 this指向ldh这个实例对象
+        function Star(){console.log("构造函数的this:"+this)};
+        // 原型对象里面的this也是指向ldh这个实例对象
+        Star.prototype.sing=function(){
+            console.log("原型对象里面的this:"+this)
+        }
+        var ldh=new Star();
+        ldh.sing();
+ 
+
+        //4.绑定事件函数  this指向的是函数的调用者 btn这个按钮对象
+        var btn = document.querySelector('button');
+        btn.onclick = function(){
+            console.log('绑定时间函数的this:' + this);
+        };//点击了按钮就可以调用这个函数
+
+ 
+        //5.定时器函数  this指向的是window
+        window.setTimeout(function(){
+            console.log('定时器的this:'+this);
+        },1000); //这个函数是定时器自动一秒钟调用一次
+ 
+        //6.立即执行函数  指向的是window
+        //立即执行函数是自动调用
+        (function(){
+            console.log('立即执行函数的this'+this);
+        })()
+ 
+    </script>
+
+</body>
+</html>
+```
+
+![image-20220624232019973](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206242320037.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //改变函数内this指向  js提供了三种方法  call() apply() bind()
+        var o={
+            name:'andy'
+        }
+        function fn(a,b){
+            console.log(this);
+            console.log(a+b);
+        }
+        fn(1,2)  // window
+        fn.call(o,1,2);  // {name: 'andy'}
+
+        //call第一个可以调用函数  第二个可以改变函数内的this指向
+        //call的主要作用可以实现继承
+        function Father(uname,age,sex){
+            this.uname=uname;
+            this.age=age;
+            this.sex=sex;
+        }
+        function Son(uname,age,sex){
+            Father.call(this,uname,age,sex);  // 这里改变了this指向
+        }
+
+        var son=new Son('刘德华',18,'男');
+        console.log(son);
+    </script>
+</body>
+</html>
+```
+
+![image-20220624232128067](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206242321135.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //改变函数内this指向  js提供了三种方法  call() apply() bind()
+        var o={
+            name:'andy'
+        }
+        function fn(arr){
+            console.log(this);
+            console.log(arr);
+        }
+
+        //1.也是调用函数  第二个可以改变函数内部的this指向
+        //2.但是他的参数必须是数组（伪数组）
+        fn.apply(o,['pink']);  // Object  pink
+
+        //3.apply的主要应用 比如我们可以利用apply借助于数学内置对象求最大值
+        // Math.max();
+        var arr = [1,66,3,99,4];
+        var max =  Math.max.apply(null,arr);
+        var min =  Math.min.apply(null,arr);
+        console.log(max);
+
+    </script>
+</body>
+</html>
+```
+
+![image-20220627224129038](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272241118.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <script>
+        //改变函数内this指向  js提供了三种方法  call() apply() bind()
+        var o={
+            name:'andy'
+        }
+        function fn(a,b){
+            console.log(this);
+            console.log(a+b);
+        }
+
+        //1.不会调用原来的函数  可以改变原来函数内部的this指向
+        //2.返回的是原函数改变this指回产生的新函数
+        var f=fn.bind(o,1,2);
+        f();   // {name: "andy"}   3
+
+        //3.如果有的函数不需要我们立即调用，但是又想改变这个函数内部的this指向，此时用bind
+        //4.我们有一个按钮，当我们点击了之后，就禁用这个按钮，3秒钟之后开启这个按钮
+        // var btn=document.querySelector('button');
+        // btn.onclick=function(){
+        //     this.disabled=true;  //这个this指向的是btn这个按钮
+        //     // var that = this;
+        //     setTimeout(function(){
+        //         // that.disabled = false;//定时器函数里面的this指向的是window
+        //         this.disabled=false; //此时定时器函数里面的this指向的是btn
+        //     }.bind(this),3000); //这个this指向的是btn这个对象
+        // }
+
+        // 如果有三个按钮,点哪个就禁用哪个，2秒钟再开启
+        var btns=document.querySelectorAll('button');
+        for(var i=0;i<btns.length;i++){
+            btns[i].onclick=function(){
+                this.disabled=true;
+                setTimeout(function(){
+                    this.disabled=false;
+                }.bind(this),2000);
+            }
+        }
+
+    </script>
+</body>
+</html>
+```
+
+![image-20220627224415875](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272244945.png)
+
