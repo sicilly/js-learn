@@ -914,3 +914,66 @@
 
 ![image-20220627224415875](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272244945.png)
 
+![image-20220627224801354](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272248436.png)
+
+![image-20220627225329512](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272253590.png)
+
+![image-20220627225410524](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272254593.png)
+
+![image-20220627225808732](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272258798.png)
+
+![image-20220627232524091](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272325167.png)
+
+![image-20220627232901109](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272329194.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        'use strict';
+        // 1. 变量名必须先声明再使用
+        num=10;
+        console.log(num);  //Uncaught ReferenceError: num is not defined
+    
+        // 2. 不能删除已经声明的变量
+        var num=10;
+        console.log(num);
+        // delete num;  // Uncaught SyntaxError: Delete of an unqualified identifier in strict mode.
+    
+         //3.严格模式下全局作用域中函数中的this是undefined
+        function fn(){
+            console.log(this);  // undefined
+        }
+        fn();
+
+
+        //4.严格模式下，如果构造函数不加new调用，this会报错
+        function Star(){
+            this.sex = '男';
+        }
+        // Star();  // Uncaught TypeError: Cannot set properties of undefined (setting 'sex')
+        var ldh = new Star();
+        console.log(ldh.sex);
+
+        //5.定时器里面的this指向的仍然是window
+        setTimeout(function(){
+            console.log(this);
+        },2000)
+
+        //6.严格模式下不允许有函数重名
+        // function fn(a,a){
+        //     console.log(a+a);  //Uncaught SyntaxError: Duplicate parameter name not allowed in this context
+        // };
+        // fn(1,2);
+    </script>
+
+</body>
+</html>
+```
+
