@@ -1018,3 +1018,217 @@
 </html>
 ```
 
+## 5. 闭包
+
+![image-20220628210405157](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206282104235.png)
+
+![image-20220628210516938](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206282105005.png)
+
+**什么是闭包1：**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //闭包(closure)指有权访问另一个函数作用域中变量的函数
+        //闭包：fun 这个函数作用域  访问了另一个函数fn 里面的局部变量 num
+        function fn(){
+            var num=10;
+            function fun(){
+                console.log(num);
+            }
+            fun();
+        }
+        fn();
+        
+    </script>
+</body>
+</html>
+```
+
+在这里fn()就是一个闭包函数
+
+![image-20220628211426292](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206282114361.png)
+
+
+
+**什么是闭包2：**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //我们fn外面的作用域可以访问fn内部的局部变量
+        //闭包的主要作用：延伸了变量的作用范围
+
+        function fn(){
+            var num=10;
+            // function fun(){
+            //     console.log(num);
+            // }
+            // return fun;
+
+            // 简单写法 直接返回一个函数
+            return function(){
+                console.log(num);
+            }
+        }
+        f=fn();  // 拿到这个函数
+        f();  // 调用这个函数
+    </script>
+</body>
+</html>
+```
+
+
+
+![image-20220628220441744](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206282204804.png)
+
+
+
+**闭包案例01**
+
+循环注册点击事件（点击li输出当前li的索引号）
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="nav">
+        <li>榴莲</li>
+        <li>臭豆腐</li>
+        <li>鱼罐头</li>
+        <li>大猪蹄子</li>
+    </ul>
+    <script>
+       //闭包应用-点击li输出当前li的索引号
+        //1.我们可以利用动态添加属性的方法做
+        var lis = document.querySelector('.nav').querySelectorAll('li');
+        // for(var i = 0;i <lis.length; i++){
+        //     lis[i].index = i;
+        //     lis[i].onclick = function(){
+        //         // console.log(i);  // 全输出4
+        //         console.log(this.index);
+        //     }
+        // }
+
+        
+        //2.利用闭包的方式得到当前li 的索引号
+        for(var i = 0; i < lis.length; i++){
+            //利用for循环创建了4个立即执行函数
+            //立即执行函数也称为小闭包，因为立即执行函数里面的任何一个函数都可以使用它的i这个变量
+            (function(i){
+                // console.log(i);
+                lis[i].onclick = function(){
+                    console.log(i);
+                }
+            })(i);
+
+        }
+        
+    </script>
+</body>
+</html>
+```
+
+**闭包案例02**
+
+循环中的setTimeout() ---3秒之后，打印li元素的所有内容
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="nav">
+        <li>榴莲</li>
+        <li>臭豆腐</li>
+        <li>鱼罐头</li>
+        <li>大猪蹄子</li>
+    </ul>
+    <script>
+        //闭包应用=3秒钟之后，打印所有li元素的内容
+        var lis = document.querySelector('.nav').querySelectorAll('li');
+        // for循环是同步任务，定时器是异步任务
+        for(var i=0;i<lis.length;i++){
+            // setTimeout(function(){
+            //     console.log(lis[i].innerHTML);  // 会报错
+            // },3000)
+
+            // 只要是在立即执行函数里面的任何一个函数都可以使用立即执行函数的i变量
+            (function(i){
+                setTimeout(function(){
+                    console.log(lis[i].innerHTML);
+                },3000)
+            })(i);
+        }
+        
+    </script>
+</body>
+</html>
+```
+
+思考题：
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 思考题1：
+        // var name="the window"
+        // var object={
+        //     name:"my object",
+        //     getNameFunc:function(){
+        //         return function(){
+        //             return this.name;
+        //         }
+        //     }
+        // };
+        // console.log(object.getNameFunc()());  // the window
+
+        // 思考题2：
+        var name="the window"
+        var object={
+            name:"my object",
+            getNameFunc:function(){
+                var that=this;
+                return function(){
+                    return that.name;
+                }
+            }
+        };
+        console.log(object.getNameFunc()());  // my object          
+    </script>
+</body>
+</html>
+```
+
+![image-20220628233812481](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206282338567.png)

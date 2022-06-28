@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="nav">
+        <li>榴莲</li>
+        <li>臭豆腐</li>
+        <li>鱼罐头</li>
+        <li>大猪蹄子</li>
+    </ul>
+    <script>
+        //闭包应用=3秒钟之后，打印所有li元素的内容
+        var lis = document.querySelector('.nav').querySelectorAll('li');
+        // for循环是同步任务，定时器是异步任务
+        for(var i=0;i<lis.length;i++){
+            // setTimeout(function(){
+            //     console.log(lis[i].innerHTML);  // 会报错
+            // },3000)
+
+            // 只要是在立即执行函数里面的任何一个函数都可以使用立即执行函数的i变量
+            (function(i){
+                setTimeout(function(){
+                    console.log(lis[i].innerHTML);
+                },3000)
+            })(i);
+        }
+        
+    </script>
+</body>
+</html>
