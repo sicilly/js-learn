@@ -977,3 +977,44 @@
 </html>
 ```
 
+![image-20220627233128765](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206272331849.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script src="https://lib.baomitu.com/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+        function fn(a,b,callback){
+            console.log(a+b);
+            callback&&callback();
+        }
+        fn(1,2,function(){
+            console.log('我是最后调用的');
+        })
+        $("div").animate({
+            left:500
+        },function(){
+            $("div").css("backgroundColor",'purple');
+        })
+
+        
+    </script>
+</body>
+</html>
+```
+
