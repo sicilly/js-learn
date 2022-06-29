@@ -1232,3 +1232,173 @@
 ```
 
 ![image-20220628233812481](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206282338567.png)
+
+
+
+
+
+## 6. 递归
+
+利用递归求：根据id返回对应的数据对象 
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var data = [{
+            id:1,
+            name:'家电',
+            goods:[{
+                id:11,
+                gname:'冰箱'
+            },{
+                id:12,
+                gname:'洗衣机'
+            }]
+        },{
+            id:2,
+            name:'服饰'
+        }];
+        //我们想要做输入id号，就可以返回的数据对象
+        //1.利用forEach遍历里面的每一个对象
+        function getID(json,id){
+            var o = {};
+            json.forEach(function(item){
+                // console.log(item); //2个数据元素
+                if(item.id == id){
+                    // console.log(item);
+                    o = item;
+                    return item;
+                    //2.我们想要得到里层的数据 11-12可以利用递归函数
+                    //里面应该有goods这个数组，并且这个数组的长度不为0
+                } else if (item.goods && item.goods.length >0){
+                  o = getID(item.goods,id);
+                }
+            });
+            return o;
+        }
+        console.log(getID(data,1));
+        console.log(getID(data,2));
+        console.log(getID(data,11));
+        console.log(getID(data,12));
+    </script>
+</body>
+</html>
+```
+
+
+
+![image-20220629214555080](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206292145144.png)
+
+
+
+浅拷贝
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var obj={
+            id:1,
+            name:'andy',
+            msg:{
+                age:18
+            }
+        }
+        var o={};
+        // 浅拷贝是把更深层次的对象的地址拷贝给了o，所以更改o会影响到obj
+        for(var k in obj){
+            // 把属性值obj[k]给到o[k]
+            o[k]=obj[k];
+        }
+        console.log(o);
+        o.msg.age=20;
+        console.log(obj);  // 也被改成了20
+        
+        console.log("用ES6的assign方法：")
+        Object.assign(o,obj);
+        console.log(o);
+    </script>
+</body>
+</html>
+```
+
+
+
+![img](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206292144901.png)
+
+
+
+深拷贝
+
+
+
+![image-20220629215047186](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202206292150256.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //深拷贝拷贝多层，每一级别的数据都会拷贝
+        var obj ={
+            id:1,
+            name:'andy',
+            msg:{
+                age:18
+            },
+            color:['pink','red']
+        };
+        var o = {};
+
+        // 封装函数
+        function deepCopy(newobj,oldobj){
+            for(var k in oldobj){
+                // 判断属性值是哪种数据类型
+                // 1.获取属性值oldobj[k]
+                var item=oldobj[k];
+                // 2. 判断这个值是否是数组
+                if(item instanceof Array){
+                    newobj[k]=[];
+                    deepCopy(newobj[k],item);  // 递归
+                }else if(item instanceof Object){
+                // 3. 判断这个值是否是对象
+                    newobj[k]={};
+                    deepCopy(newobj[k],item);  // 递归
+                }else{
+                    // 4. 属于简单数据类型
+                    newobj[k]=item;
+                }
+            }
+        }
+        // 调用函数
+        deepCopy(o,obj);
+        console.log(o);
+
+        var arr=[];
+        console.log(arr instanceof Object); // 数组也属于对象，所以上面要先判断数组
+        o.msg.age=20;
+        console.log(obj);  // 还是18，没变
+
+    </script>
+</body>
+</html>
+```
+
