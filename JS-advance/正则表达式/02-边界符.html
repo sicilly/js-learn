@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 只要包含abc，就是true
+        var rg=/abc/;    
+        console.log(rg.test('abc'));   // true
+        console.log(rg.test('abcd'));  // true
+        console.log(rg.test('aabcd')); // true
+        console.log('-------------')
+
+        // 以abc开头就是true
+        var reg=/^abc/
+        console.log(reg.test('abc'));   // true
+        console.log(reg.test('abcd'));  // true
+        console.log(reg.test('aabcd'));  // false
+        console.log('-------------')
+
+        // 精确匹配abc才是true
+        var reg1=/^abc$/
+        console.log(reg1.test('abc'));   // true
+        console.log(reg1.test('abcd'));  // flase
+        console.log(reg1.test('aabcd'));  // false
+
+
+
+    </script>
+</body>
+</html>

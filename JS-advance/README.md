@@ -1402,3 +1402,84 @@
 </html>
 ```
 
+## 7. 正则表达式
+
+![image-20220703175818735](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202207031759785.png)
+
+![image-20220703180034759](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202207031800834.png)
+
+![image-20220703180456822](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202207031804904.png)
+
+![image-20220703181013235](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202207031810325.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1. 构造函数创建
+        var regexp=new RegExp(/123/);
+        console.log(regexp);
+        // 2. 字面量创建
+        var rg=/123/;
+        // 3. test方法检测字符串是否符合正则表达式的要求
+        console.log(rg.test(123));  // true
+        console.log(rg.test('abc'));  // false
+    </script>
+</body>
+</html>
+```
+
+
+
+![image-20220703182209077](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202207031822184.png)
+
+![image-20220703180931649](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202207031809739.png)
+
+![image-20220703222524597](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202207032225665.png)
+
+![image-20220703222554964](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202207032225036.png)
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 只要包含abc，就是true
+        var rg=/abc/;    
+        console.log(rg.test('abc'));   // true
+        console.log(rg.test('abcd'));  // true
+        console.log(rg.test('aabcd')); // true
+        console.log('-------------')
+
+        // 以abc开头就是true
+        var reg=/^abc/
+        console.log(reg.test('abc'));   // true
+        console.log(reg.test('abcd'));  // true
+        console.log(reg.test('aabcd'));  // false
+        console.log('-------------')
+
+        // 精确匹配abc才是true
+        var reg1=/^abc$/
+        console.log(reg1.test('abc'));   // true
+        console.log(reg1.test('abcd'));  // flase
+        console.log(reg1.test('aabcd'));  // false
+
+
+
+    </script>
+</body>
+</html>
+```
+
+![image-20220703222610758](https://picture-1308610694.cos.ap-nanjing.myqcloud.com/202207032226825.png)
