@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>改变状态与回调顺序</title>
+</head>
+<body>
+    <script>
+        let p=new Promise((resolve,reject)=>{
+            // 如果是同步任务，就是先改状态，后指定回调
+            // resolve('OK');
+
+            // 如果是异步任务，就是先指定回调，后改变状态
+            setTimeout(()=>{
+                resolve('OK');
+            },1000);
+        });
+
+        p.then(value=>{
+            console.log(value);  // 隔1s后输出ok
+        },reason=>{
+
+        })
+    </script>
+</body>
+</html>
