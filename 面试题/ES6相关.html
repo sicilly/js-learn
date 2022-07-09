@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var let const
+        // 1. 声明提升
+        console.log(num);  //undefined
+        var num=123;
+
+        // 2. 变量覆盖
+        var num1=12;
+        var num1=34;
+        console.log(num1);  //34
+
+        // 3. 没有块级作用域
+        for(var i=0;i<5;i++){
+
+        }
+        console.log(i); // 5
+
+        // const声明之后必须赋值,定义后的值不能修改
+        const DEMO=123;
+        // DEMO=456;  //Uncaught TypeError
+ 
+        // 交换两个变量 解构
+        let a=1;
+        let b=2;
+        [a,b]=[b,a];
+        console.log(a, b);  // 2 1
+
+        // 去重
+        let arr=[12,43,23,12,43,55];
+        let item=[...new Set(arr)];
+        console.log(item);  // [12, 43, 23, 55]
+
+        // promise构造函数同步执行
+        const promise=new Promise((resolve,reject)=>{
+            console.log(1);
+            resolve();
+            console.log(2);
+        })
+
+        // then异步执行
+        promise.then(()=>{
+            console.log(3);
+        })
+
+        console.log(4);
+        // 1 2 4 3
+
+    </script>
+</body>
+</html>
