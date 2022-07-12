@@ -7,7 +7,8 @@
 </head>
 <body>
     <script>
-        // 手机
+        // ES5构造函数继承
+        // 手机 父构造函数
         function Phone(brand,price){
             this.brand=brand;
             this.price=price;
@@ -16,16 +17,16 @@
             console.log("我可以打电话")
         }
 
-        // 智能手机
+        // 智能手机 子构造方法
         function SmartPhone(brand,price,color,size){
-            Phone.call(this,brand,price);
-            this.color=color;
+            Phone.call(this,brand,price); // 调用了父构造函数
+            this.color=color; // 子类自己的属性
             this.size=size;
         }
 
         // 设置子级构造函数的原型
         SmartPhone.prototype=new Phone;
-        SmartPhone.prototype.constructor=SmartPhone;
+        SmartPhone.prototype.constructor=SmartPhone;  // 校正
 
         // 声明子类的方法
         SmartPhone.prototype.photo=function(){
