@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // async函数
+        async function fn(){
+            // 返回一个字符串
+            return 'abc';
+        }
+        const result=fn();
+        console.log(result);  // 返回的是一个Promise对象，状态为fulfilled，结果为abc
+
+
+
+        async function fn2(){
+            // 返回一个Promise对象
+            return new Promise((resolve,reject)=>{
+                // resolve('success');
+                reject('error');
+            });
+        }
+        const result2=fn2();
+
+        // 调用then方法
+        result2.then(value=>{
+            console.log(value);
+        },reason=>{
+            console.warn(reason);
+        })
+    </script>
+</body>
+</html>

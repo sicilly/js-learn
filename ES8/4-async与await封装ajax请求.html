@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发送ajax请求</title>
+</head>
+<body>
+    <script>
+        // 发送AJAX请求，返回的结果是Promise对象
+        function sendAJAX(url){
+            return new Promise((resolve,reject)=>{
+                // 1. 创建对象
+                const xhr=new XMLHttpRequest();
+                // 2. 初始化
+                xhr.open('GET',url);
+                // 3. 发送
+                xhr.send();
+                // 4. 事件绑定
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState===4){
+                        if(xhr.status>=200&&xhr.status<300){
+                            resolve(xhr.response); // 成功
+                        }else{
+                            reject(xhr.status); // 失败
+                        }
+                    }
+                }
+            })
+        }
+
+        // promise then方法测试
+        // const result=sendAJAX("https://autumnfish.cn/api/joke").then(value=>{
+        //     console.log(value);
+        // },reason=>{});
+
+        // async与await测试
+        async function main(){
+            // 发送ajax请求
+            const result=await sendAJAX("https://autumnfish.cn/api/joke");
+            console.log(result);
+        }
+        main();
+    </script>
+</body>
+</html>

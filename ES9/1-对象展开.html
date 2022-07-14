@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象展开</title>
+</head>
+<body>
+    <!-- ES9中为对象提供了像数组一样的rest参数和扩展运算符 -->
+    <script>
+        // function connect({host,port,...user}){
+        //     console.log(host);
+        //     console.log(port);
+        //     console.log(user);
+        // }
+
+        // connect({
+        //     host:'127.0.0.1',
+        //     port:3306,
+        //     username:'root',
+        //     password:'root',
+        //     type:'master'
+        // });
+
+        const skillOne={
+            q:'天音波'
+        }
+        const skillTwo={
+            w:'金钟罩'
+        }
+        const skillThree={
+            e:'天雷破'
+        }
+        const skillFour={
+            r:'猛龙摆尾'
+        }
+        const mangseng={...skillOne,...skillTwo,...skillThree,...skillFour}
+        console.log(mangseng);  // {q: '天音波', w: '金钟罩', e: '天雷破', r: '猛龙摆尾'}
+    </script>
+</body>
+</html>
