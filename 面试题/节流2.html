@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1{
+            width: 100px;
+            height: 100px;
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1" draggable="true"></div>
+    <script>
+        function throttle(fn,delay=100){
+            let timer=0;   
+            return function(){
+                if(timer) return;  // 已经有定时器了，直接返回，不处理
+                timer=setTimeout(()=>{
+                    fn.apply(this,arguments);
+                    timer=0;
+                },delay);
+            }
+        };
+
+        const div1=document.getElementById('div1');
+        // 如果没有节流
+        // div1.addEventListener('drag',(e)=>{
+        //     console.log("当前位置：",e.offsetX,e.offsetY);
+        // })
+        div1.addEventListener('drag',throttle((e)=>{
+            console.log("当前位置：",e.offsetX,e.offsetY);
+        },1000));
+    </script>
+</body>
+</html>

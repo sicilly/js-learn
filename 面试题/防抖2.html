@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="input1">
+    <script>
+        function debounce(fn,delay=200){
+            let timer=0;
+            // 返回的是一个函数
+            return function(){
+                if(timer) clearTimeout(timer);  // 清除掉原来的计时器
+                // 重新开始计时
+                timer=setTimeout(()=>{
+                    fn.apply(this); // 修正this指向
+                    timer=0;
+            },delay);
+            }
+        }
+
+        const input1=document.getElementById('input1');
+        // 如果没有防抖
+        // input1.addEventListener('keyup',()=>{
+        //     console.log('发起请求');
+        // })
+        input1.addEventListener('keyup',debounce(()=>{
+            console.log('发起请求',input1.value);
+        }),300);
+    </script>
+</body>
+</html>
