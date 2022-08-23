@@ -25,6 +25,24 @@
 
 
         // 2. 一般情况下，公共属性定义到构造函数里面，公共方法放到原型对象身上
+
+        // 8.20 猿辅导二面
+        function Person(age) {
+            this.age = age     
+        }
+        
+        Person.prototype.name = 'name1'
+        var person1 = new Person()
+        
+        console.log(person1.name) // name1
+        
+        Person.prototype = {name: 'name3'}
+        
+        console.log(person1.name) // name1
+
+        person1.name = 'name2'
+        
+        console.log(person1.name) // name2
     </script>
 </body>
 </html>

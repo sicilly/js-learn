@@ -16,7 +16,8 @@
                 if(timer) clearTimeout(timer);  // 清除掉原来的计时器
                 // 重新开始计时
                 timer=setTimeout(()=>{
-                    fn.apply(this); // 修正this指向
+                    // https://blog.csdn.net/weixin_44494811/article/details/103486637
+                    fn.apply(this,arguments); // 修正this指向
                     timer=0;
             },delay);
             }
